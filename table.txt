@@ -1,0 +1,42 @@
+public DefaultTableModel getData() throws SQLException{
+       DefaultTableModel tblm = new DefaultTableModel();
+       tblm.addColumn("FIRST NAME");
+       tblm.addColumn("LAST NAME");
+       tblm.addColumn("TELEPHONE");
+       tblm.addColumn("DATE OF BIRTH");
+       tblm.addColumn("GENDER");
+       tblm.addColumn("AGE");
+       
+       String datab = "SELECT * FROM members";
+       
+       try{
+           Connection connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/login_form","root","");
+           Statement state = connect.prepareStatement(datab);
+           ResultSet rs = state.executeQuery(datab);
+           while (rs.next()){
+              String fname = rs.getString(1);
+              String lname = rs.getString(2);
+              String telephone = rs.getString(3);
+              String dob = rs.getString(4);
+              String gender = rs.getString(5);
+              String age = rs.getString(6);
+              
+              tblm.addRow(new String[]{fname,lname,telephone,dob,gender,age});
+           }
+           return tblm;
+       }catch (SQLException e){
+   }
+       return null;
+
+
+
+   public ResultSet pieData() throws SQLException{
+       ResultSet rs = null;
+       String datab = "SELECT age,Gender FROM members";
+       try{           
+       Connection connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/login_form","root","");
+       Statement state = connect.prepareStatement(datab);
+       rs = state.executeQuery(datab);
+   }catch(SQLException e){
+}
+        return rs;
